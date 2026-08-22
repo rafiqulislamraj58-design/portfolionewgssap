@@ -9,30 +9,23 @@ const Footer = () => {
   const navigate = useNavigate();
   const footerRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        footerRef.current,
-        {
-          y: 50,
-          opacity: 0,
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        },
-      );
-    }, footerRef);
+ useEffect(() => {
+  const ctx = gsap.context(() => {
+    gsap.from(footerRef.current, {
+      opacity: 0,
+      y: 20,
+      duration: 0.6,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top 95%",
+        toggleActions: "play none none none",
+      },
+    });
+  }, footerRef);
 
-    return () => ctx.revert();
-  }, []);
+  return () => ctx.revert();
+}, []);
 
   return (
     <footer
