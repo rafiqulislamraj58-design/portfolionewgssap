@@ -5,6 +5,8 @@ import Home from '../components/Home';
 import About from '../components/About';
 import Skill from '../components/Skill';
 import Contract from '../components/Contract';
+import Project from "../components/Project";
+import Resume from "../components/Resume";
 
 
 
@@ -26,6 +28,14 @@ const router =createBrowserRouter([
               },{
                 path:"/contact",
                 element:<Contract/>
+              }
+              ,{
+                path:"/project",
+                element:<Project/>
+              }
+              ,{
+                path:"/resume",
+                element:<Resume/>
               }
         ]
     }

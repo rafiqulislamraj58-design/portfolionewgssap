@@ -5,6 +5,7 @@ import gsap from "gsap";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const navRef = useRef(null);
@@ -14,44 +15,61 @@ const Navbar = () => {
   const mobileMenuRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    const tl = gsap.timeline({
+      defaults: { ease: "power3.out" },
+    });
 
     tl.fromTo(
       navRef.current,
       { y: -50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8 },
+      { y: 0, opacity: 1, duration: 0.8 }
     )
       .fromTo(
         logoRef.current,
         { scale: 0.9, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.5 },
-        "-=0.4",
+        "-=0.4"
       )
       .fromTo(
         menuRef.current.children,
         { y: -15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08 },
-        "-=0.3",
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.08,
+        },
+        "-=0.3"
       )
       .fromTo(
         btnRef.current,
         { scale: 0.9, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.5 },
-        "-=0.3",
+        "-=0.3"
       );
   }, []);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+
       gsap.fromTo(
         mobileMenuRef.current,
         { opacity: 0, y: -15 },
-        { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        }
       );
     } else {
       document.body.style.overflow = "auto";
     }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
   }, [isOpen]);
 
   const handleNavigate = (path) => {
@@ -67,6 +85,7 @@ const Navbar = () => {
         ref={navRef}
         className="w-full bg-[#030712]/85 backdrop-blur-xl py-3.5 px-6 md:px-12 sticky top-0 z-50 flex items-center justify-between border-b border-zinc-800/80 shadow-[0_4px_30px_rgba(0,0,0,0.5)] font-mono"
       >
+        {/* Logo */}
         <div ref={logoRef} className="flex items-center shrink-0">
           <button
             onClick={() => handleNavigate("/")}
@@ -75,42 +94,84 @@ const Navbar = () => {
             <span className="group-hover:text-emerald-400 transition-colors duration-300">
               RAJ
             </span>
-            <span className="text-emerald-500 font-bold">.DEV</span>
+
+            <span className="text-emerald-500 font-bold">
+              .DEV
+            </span>
           </button>
         </div>
+
+        {/* Desktop Menu */}
         <nav className="hidden lg:flex bg-zinc-900/60 border border-zinc-800/80 px-6 xl:px-8 py-2 rounded-full shadow-[inset_0_1px_4px_rgba(255,255,255,0.05)] items-center gap-6 xl:gap-8 backdrop-blur-md">
           <ul
             ref={menuRef}
             className="flex items-center gap-6 xl:gap-8 font-mono text-xs font-medium tracking-widest text-zinc-400"
           >
+            {/* Home */}
             <li>
               <button
                 onClick={() => handleNavigate("/")}
-                className={`transition-all duration-300 cursor-pointer ${isActive("/") ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "hover:text-zinc-100"}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  isActive("/")
+                    ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                    : "hover:text-zinc-100"
+                }`}
               >
                 HOME
               </button>
             </li>
+
+            {/* About */}
             <li>
               <button
                 onClick={() => handleNavigate("/about")}
-                className={`transition-all duration-300 cursor-pointer ${isActive("/about") ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "hover:text-zinc-100"}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  isActive("/about")
+                    ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                    : "hover:text-zinc-100"
+                }`}
               >
                 ABOUT
               </button>
             </li>
+
+            {/* Skills */}
             <li>
               <button
                 onClick={() => handleNavigate("/skill")}
-                className={`transition-all duration-300 cursor-pointer ${isActive("/skill") ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "hover:text-zinc-100"}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  isActive("/skill")
+                    ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                    : "hover:text-zinc-100"
+                }`}
               >
                 SKILLS
               </button>
             </li>
+
+            {/* Projects */}
+            <li>
+              <button
+                onClick={() => handleNavigate("/project")}
+                className={`transition-all duration-300 cursor-pointer ${
+                  isActive("/project")
+                    ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                    : "hover:text-zinc-100"
+                }`}
+              >
+                PROJECTS
+              </button>
+            </li>
+
+            {/* Contact */}
             <li>
               <button
                 onClick={() => handleNavigate("/contact")}
-                className={`transition-all duration-300 cursor-pointer ${isActive("/contact") ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" : "hover:text-zinc-100"}`}
+                className={`transition-all duration-300 cursor-pointer ${
+                  isActive("/contact")
+                    ? "text-emerald-400 font-semibold drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"
+                    : "hover:text-zinc-100"
+                }`}
               >
                 CONTACT
               </button>
@@ -118,15 +179,21 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        <div ref={btnRef} className="hidden lg:flex items-center shrink-0">
+        {/* Resume Button */}
+        <div
+          ref={btnRef}
+          className="hidden lg:flex items-center shrink-0"
+        >
           <button
-            onClick={() => handleNavigate("/contact")}
+            onClick={() => handleNavigate("/resume")}
             className="bg-emerald-500 text-zinc-950 px-5 xl:px-6 py-2 rounded-full font-mono font-bold text-xs tracking-wider flex items-center gap-2 hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all duration-300 cursor-pointer border border-emerald-400/30"
           >
-            HIRE ME <span className="text-sm leading-none">→</span>
+            RESUME
+            <span className="text-sm leading-none">↗</span>
           </button>
         </div>
 
+        {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -168,7 +235,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Menu */}
       {isOpen && (
         <div
           ref={mobileMenuRef}
@@ -178,43 +245,76 @@ const Navbar = () => {
             <li>
               <button
                 onClick={() => handleNavigate("/")}
-                className={`text-left transition-all ${isActive("/") ? "text-emerald-400" : "hover:text-white"}`}
+                className={`text-left transition-all ${
+                  isActive("/")
+                    ? "text-emerald-400"
+                    : "hover:text-white"
+                }`}
               >
                 HOME
               </button>
             </li>
+
             <li>
               <button
                 onClick={() => handleNavigate("/about")}
-                className={`text-left transition-all ${isActive("/about") ? "text-emerald-400" : "hover:text-white"}`}
+                className={`text-left transition-all ${
+                  isActive("/about")
+                    ? "text-emerald-400"
+                    : "hover:text-white"
+                }`}
               >
                 ABOUT
               </button>
             </li>
+
             <li>
               <button
                 onClick={() => handleNavigate("/skill")}
-                className={`text-left transition-all ${isActive("/skill") ? "text-emerald-400" : "hover:text-white"}`}
+                className={`text-left transition-all ${
+                  isActive("/skill")
+                    ? "text-emerald-400"
+                    : "hover:text-white"
+                }`}
               >
                 SKILLS
               </button>
             </li>
+
+            <li>
+              <button
+                onClick={() => handleNavigate("/project")}
+                className={`text-left transition-all ${
+                  isActive("/project")
+                    ? "text-emerald-400"
+                    : "hover:text-white"
+                }`}
+              >
+                PROJECTS
+              </button>
+            </li>
+
             <li>
               <button
                 onClick={() => handleNavigate("/contact")}
-                className={`text-left transition-all ${isActive("/contact") ? "text-emerald-400" : "hover:text-white"}`}
+                className={`text-left transition-all ${
+                  isActive("/contact")
+                    ? "text-emerald-400"
+                    : "hover:text-white"
+                }`}
               >
                 CONTACT
               </button>
             </li>
           </ul>
 
+          {/* Mobile Resume */}
           <div className="mt-10 pt-6 border-t border-zinc-800">
             <button
-              onClick={() => handleNavigate("/contact")}
+              onClick={() => handleNavigate("/resume")}
               className="w-full bg-emerald-500 text-zinc-950 py-3.5 rounded-xl font-bold font-mono tracking-wider text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:bg-emerald-400 transition-all"
             >
-              HIRE ME →
+              VIEW RESUME ↗
             </button>
           </div>
         </div>
