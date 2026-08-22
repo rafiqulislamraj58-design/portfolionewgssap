@@ -40,7 +40,7 @@ const Resume = () => {
          
 
           <a
-            href="/protfolio/src/assets/cv_rafiqul_islam_raj.pdf"
+            href="/cv_rafiqul_islam_raj.pdf"
             download="Rafiqul_Islam_Raj_Resume.pdf"
             className="
               w-full
